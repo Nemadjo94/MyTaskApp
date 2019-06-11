@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Swipeable from 'react-native-swipeable';
-import {deleteTask} from '../App';
 
 export default class SwapableItem extends Component {
 
