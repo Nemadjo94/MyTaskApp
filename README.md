@@ -11,8 +11,8 @@ npm install
 run expo:
 npm start
 
-To run the app you will need:
+To run the app you will need:<br>
 Node.js<br>
-Expo Cli
+Expo Cli<br>
 Expo Client Android, iOS
 
