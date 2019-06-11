@@ -12,12 +12,17 @@ export default class App extends React.Component {
       text: "", //Text input
       counter: 1,
       counterComplete: 1,
+      //Counters are incrementing with every new task
+      //assign them as keys for flat list
+      //do this to avoid the same key warning
     }; 
   }
-
   
 
-  _keyExtractor = (item, index) => (item.key).toString();
+  
+  //Key extractor for flat list
+  //Flat list requires keys to be passed as string to avoid a warning
+  _keyExtractor = (item, index) => (item.key).toString(); 
 
   //Change text state on input
   cnangeTextHandler = text => {
@@ -36,13 +41,12 @@ export default class App extends React.Component {
         prevState => {
           let { tasks, text, counter } = prevState;
           return {
-            //Key should be passed to FlatList
-            tasks: tasks.concat({ key: counter, text: text}),
+            tasks: tasks.concat({ key: counter, text: text}),//Value added to tasks array
             text: "", //Empty text input after insert
-            counter: counter += 1,
+            counter: counter += 1, //increment the counter
           };
         },
-        () => Tasks.save(this.state.tasks)
+        () => Tasks.save(this.state.tasks)//save to async storage
       );
       console.log("Counter " + this.state.counter);
       console.log(this.state.tasks.length); //testing
@@ -56,7 +60,7 @@ export default class App extends React.Component {
         tasks.splice(i, 1);
         return { tasks: tasks, };
       },
-      () => Tasks.save(this.state.tasks),
+      () => Tasks.save(this.state.tasks),//save to async storage
     );
     console.log("task length: " + this.state.tasks.length);
   };
@@ -70,16 +74,16 @@ export default class App extends React.Component {
           completed: completed, 
         };
       },
-      () => CompletedTasks.save(this.state.completed),
+      () => CompletedTasks.save(this.state.completed),//save to async storage
     );
     console.log("completed length: " + this.state.tasks.length);
   };
 
   completeTask = (i) => {
-
+    //Since we need two callback functions
     const SaveAll = () => {
       Tasks.save(this.state.tasks);
-      CompletedTasks.save(this.state.completed);
+      CompletedTasks.save(this.state.completed);//save to async storage
     };
 
     this.setState(
@@ -93,7 +97,7 @@ export default class App extends React.Component {
           counterComplete: counterComplete += 1,
         };
       },
-      SaveAll,
+      SaveAll,//Call both functions
     );
     console.log("completed length: " + this.state.completed.length);
   };
@@ -103,7 +107,7 @@ export default class App extends React.Component {
       tasks: [],
       counter: 1,
     },
-    () => Tasks.save(this.state.tasks),
+    () => Tasks.save(this.state.tasks),//save to async storage
     )
   };
   
@@ -112,12 +116,12 @@ export default class App extends React.Component {
       completed: [],
       counterComplete: 1,
     },
-    () => CompletedTasks.save(this.state.completed),
+    () => CompletedTasks.save(this.state.completed),//save to async storage
     )
   };
 
   componentDidMount(){
-    //Load tasks on component did mount
+    //Load data on component did mount
     Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
     CompletedTasks.all(tasks => this.setState({ completed: tasks || [] }));
   }
@@ -213,6 +217,7 @@ export default class App extends React.Component {
   }
 }
 
+//Async Storage for tasks
 let Tasks = {
   convertToArrayOfObject(tasks, callback) {
     return callback(
@@ -232,7 +237,7 @@ let Tasks = {
     console.log("Task saved");
   }
 };
-
+//Async Storage for completed tasks
 let CompletedTasks = {
   convertToArrayOfObject(tasks, callback) {
     return callback(
