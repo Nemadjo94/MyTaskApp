@@ -1,16 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableHighlight,Animated, ScrollView} from 'react-native'; //Step 1
+import {StyleSheet, Text, View, Image, TouchableHighlight,Animated, ScrollView} from 'react-native'; 
 
 export default class Panel extends React.Component{
     constructor(props){
         super(props);
 
-        this.icons = {     //Step 2
+        this.icons = {     
             'up'    : require('../assets/Arrowhead.png'),
             'down'  : require('../assets/Arrowhead-Down.png')
         };
 
-        this.state = {       //Step 3
+        this.state = {      
             title       : props.title,
             expanded    : true,
             animation   : new Animated.Value()
@@ -18,21 +18,21 @@ export default class Panel extends React.Component{
     }
 
     toggle(){
-        //Step 1
+        
         let initialValue    = this.state.expanded? this.state.maxHeight + this.state.minHeight : this.state.minHeight,
             finalValue      = this.state.expanded? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
     
         this.setState({
-            expanded : !this.state.expanded  //Step 2
+            expanded : !this.state.expanded  
         });
     
-        this.state.animation.setValue(initialValue);  //Step 3
-        Animated.spring(     //Step 4
+        this.state.animation.setValue(initialValue);  
+        Animated.spring(    
             this.state.animation,
             {
                 toValue: finalValue
             }
-        ).start();  //Step 5
+        ).start();  
     }
 
     _setMaxHeight(event){
@@ -52,10 +52,10 @@ export default class Panel extends React.Component{
         let icon = this.icons['up'];
 
         if(this.state.expanded){
-            icon = this.icons['down'];   //Step 4
+            icon = this.icons['down'];   
         }
 
-        //Step 5
+       
         return ( 
             <Animated.View style={[styles.container,{height: this.state.animation, flex: this.state.expanded ? 1 : null}]} >
 

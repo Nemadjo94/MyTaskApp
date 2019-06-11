@@ -19,7 +19,7 @@ export default class SwapableItem extends Component {
       return (
         <Swipeable 
           leftActionActivationDistance={200} 
-          leftContent={ !this.props.done ? (
+          leftContent={ !this.props.done ? ( //disable swipe left for completed tasks
             <View style={[styles.leftSwipeItem, {backgroundColor: leftActionActivated ? 'lightgoldenrodyellow' : "#fff"}]}>
                 <Image  
                     source={require('../assets/check-symbol.png')}
@@ -49,7 +49,7 @@ export default class SwapableItem extends Component {
           
           >
           <View style={styles.listItem}>
-            <Image  
+            <Image 
               source={this.props.done ? require('../assets/check-symbol.png') : require('../assets/circle.png')}
               style={{width: 30, height: 30, marginRight: '5%'}}
             />
