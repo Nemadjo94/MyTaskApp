@@ -5,10 +5,10 @@ Created using React Native during the React Native course
 First get the application via git:<br>
 git clone git@gihub.com:Nemadjo94/MyTaskApp.git
 
-install dependecies:
+install dependecies:<br>
 npm install
 
-run expo:
+run expo:<br>
 npm start
 
 To run the app you will need:<br>
